@@ -3,7 +3,7 @@ name: Generate ASCII
 on: [push]
 
 jobs:
-    first_job:
+    ascii-job:
         runs-on: ubuntu-latest
         steps:
         - name: Checkout Repo
@@ -13,4 +13,6 @@ jobs:
           run: ls -ltra
 
         - name: Run Shell Script
-          run: ./ascii-script.sh
+          run: |
+           chmod +x ascii-script.sh
+           ./ascii-script.sh
