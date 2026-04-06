@@ -9,17 +9,8 @@ jobs:
         - name: Checkout Repo
           uses: actions/checkout@v6
 
-        - name: Install Cowsay
-          run: sudo apt-get install cowsay -y
-        
-        - name : Generate ASCII
-          run: cowsay -f dragon "ROARRRR! I'm DevOps dragon" >> dragon.txt
-
-        - name: Check File Exists
-          run: grep -i "dragon" dragon.txt
-
-        - name: Read File
-          run: cat dragon.txt
-
         - name: List Repo Files
           run: ls -ltra
+
+        - name: Run Shell Script
+          run: ./ascii-script.sh
