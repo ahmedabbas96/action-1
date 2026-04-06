@@ -6,14 +6,20 @@ jobs:
     first_job:
         runs-on: ubuntu-latest
         steps:
-        - name: checkout Repo
+        - name: Checkout Repo
           uses: actions/checkout@v6
-          
-        - name: Welcome Message
-          run: echo "My first github actins job"
 
-        - name: List Files
-          run: ls
+        - name: Welcome and List and Read
+          run: |
+            echo "My first github actins job"
+            ls -ltra
+            cat README.md
+        
+        - name : Generate ASCII
+          run: cowsay -f dragon "ROARRRR! I'm DevOps dragon" >> dragon.txt
 
-        - name: Read File
-          run: cat README.md
+        # - name: List Files
+        #   run: ls
+
+        # - name: Read File
+        #   run: cat README.md
