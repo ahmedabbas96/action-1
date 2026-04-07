@@ -12,15 +12,20 @@ jobs:
         - name: Gernerate ASCII
           run: cowsay -f dragon "ROARRRR! I'm DevOps dragon" >> dragon.txt
 
-        - name: Sleep For 30 Seconds
-          run: sleep 30
+        - name: Upload Dragon file
+          uses: actions/upload-artifact@v4
+          with:
+            name: dragon-file
+            path: dragon.txt
 
     test-job2:
         needs: build-job1
         runs-on: ubuntu-latest
         steps:
-        - name: Sleep For 10 Seconds
-          run: sleep 10
+        - name: Download Dragon file
+          uses: actions/download-artifact@v8
+          with:
+            name: dragon-file
 
         - name: Test File Exits
           run: grep -i "dragon" dragon.txt
@@ -29,6 +34,11 @@ jobs:
         needs: test-job2
         runs-on: ubuntu-latest
         steps:
+        - name: Download Dragon file
+          uses: actions/download-artifact@v8
+          with:
+            name: dragon-file
+            
         - name: Read File
           run: cat dragon.txt
         
