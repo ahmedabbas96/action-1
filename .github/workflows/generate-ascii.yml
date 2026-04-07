@@ -3,16 +3,35 @@ name: Generate ASCII
 on: [push]
 
 jobs:
-    ascii-job:
+    build-job1:
         runs-on: ubuntu-latest
         steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v6
+        - name: Install Cowsay
+          run: sudo apt-get install cowsay -y
+        
+        - name: Gernerate ASCII
+          run: cowsay -f dragon "ROARRRR! I'm DevOps dragon" >> dragon.txt
 
-        - name: List Repo Files
-          run: ls -ltra
+        - name: Sleep For 30 Seconds
+          run: sleep 30
 
-        - name: Run Shell Script
-          run: |
-           chmod +x ascii-script.sh
-           ./ascii-script.sh
+    test-job2:
+        needs: build-job1
+        runs-on: ubuntu-latest
+        steps:
+        - name: Sleep For 10 Seconds
+          run: sleep 10
+
+        - name: Test File Exits
+          run: grep -i "dragon" dragon.txt
+
+    deploy-job3:
+        needs: test-job2
+        runs-on: ubuntu-latest
+        steps:
+        - name: Read File
+          run: cat dragon.txt
+        
+        - name: Deploy
+          run: echo Deploying ... .. .
+
